@@ -5,7 +5,7 @@
     "name": "Jared A. Scheel",
     "email": "jared@jaredscheel.com"
   },
-  "description": "Simple and open key/value store webservice",
+  "description": "Simple and open key/value store web service",
   "main": "",
   "repository": {
     "type": "git",
