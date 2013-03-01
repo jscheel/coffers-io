@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+var restify = require('restify');
+var levelup = require('levelup');
+var db = levelup('./data/coffer-io.db', {
+  encoding: 'json',
+  createIfMissing: true
+});
+var server = restify.createServer();
+
+server.use(restify.CORS());
+server.use(restify.bodyParser({
+  mapParams: false,
+  maxBodySize: 128 * 1024
+}));
+server.use(restify.queryParser());
+server.use(restify.jsonp());
+server.use(restify.acceptParser(server.acceptable));
+server.use(restify.throttle({
+  burst: 100,
+  rate: 50,
+  ip: true,
+  overrides: {
+    '127.0.0.1': {
+      rate: 0,
+      burst: 0
+    }
+  }
+}));
+
+server.post('/:key', function(req, res, next) {
+  return db.put(req.params.key, req.body, function(err) {
+    res.send(err);
+    if (err) {
+      return next(err);
+    }
+    return next();
+  });
+});
+
+server.get('/:key', function(req, res, next) {
+  return db.get(req.params.key, function(err, value) {
+    if (err) {
+      return next(err);
+    } else {
+      res.send(value);
+      return next();
+    }
+  });
+});
+
+server.listen(8080, function() {
+  var url;
+  if (process.env.SUBDOMAIN) {
+    url = 'http://' + process.env.SUBDOMAIN + '.jit.su/';
+  } else {
+    url = server.url;
+  }
+  return console.log("%s listening at %s", server.name, url);
+});
