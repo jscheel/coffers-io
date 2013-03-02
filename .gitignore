@@ -1,4 +1,5 @@
-/data/*
+/db/*
 /node_modules
-/config/!.dist
+/config/*
+/config/!default.json
 Capfile

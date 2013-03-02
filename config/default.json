@@ -1,0 +1,12 @@
+{
+  "db": {
+    "path": "./db/development"
+  },
+  "api": {
+    "maxRequestSize": 131072,
+    "throttle": {
+      "burst": 100,
+      "rate": 50
+    }
+  }
+}
