@@ -2,6 +2,7 @@
 
 var restify = require('restify');
 var levelup = require('levelup');
+var CONFIG = require('config');
 var db = levelup('./coffer-io.db', {
   encoding: 'json',
   createIfMissing: true
