@@ -16,13 +16,13 @@
   ],
   "homepage": "http://coffers.io",
   "scripts": {
-    "start": "node ./bin/server"
+    "start": "node ./server.js"
   },
   "contributors": [],
   "dependencies": {
     "levelup": "0.6.x",
     "restify": "2.3.x",
-    "node-config": "0.0.2"
+    "config": "0.4.x"
   },
   "devDependencies": {
     "node-dev": ""

@@ -3,6 +3,7 @@
 var restify = require('restify');
 var levelup = require('levelup');
 var CONFIG = require('config');
+
 var db = levelup(CONFIG.db.path, {
   encoding: 'json',
   createIfMissing: true

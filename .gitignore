@@ -3,3 +3,4 @@
 /config/*
 /config/!default.json
 Capfile
+npm-debug.log
