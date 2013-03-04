@@ -29,6 +29,7 @@ server.use(restify.throttle({
   }
 }));
 
+// we can't do this yet because restify seems to be having some issues
 // restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 // server.use(restify.CORS());
 
