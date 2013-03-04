@@ -70,7 +70,7 @@ server.get('/:key', corsHandler, function(req, res, next) {
 
 
 server.get('/', corsHandler, function(req, res, next) {
-  res.send('Coffers.IO - A simple and open key/value store web service');
+  res.end('Coffers.IO - A simple and open key/value store web service');
 });
 
 server.listen(8080, function() {
