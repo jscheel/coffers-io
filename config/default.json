@@ -8,5 +8,8 @@
       "burst": 100,
       "rate": 50
     }
+  },
+  "server": {
+    "port": 8080
   }
 }

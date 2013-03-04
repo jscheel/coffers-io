@@ -74,12 +74,6 @@ server.get('/', corsHandler, function(req, res, next) {
   res.end('Coffers.IO - A simple and open key/value store web service');
 });
 
-server.listen(8080, function() {
-  var url;
-  if (process.env.SUBDOMAIN) {
-    url = 'http://' + process.env.SUBDOMAIN + '.jit.su/';
-  } else {
-    url = server.url;
-  }
-  return console.log("%s listening at %s", server.name, url);
+server.listen(CONFIG.server.port, function() {
+  return console.log("%s listening at %s", server.name, server.url);
 });
