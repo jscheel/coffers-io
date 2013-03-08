@@ -15,23 +15,29 @@ var server = restify.createServer();
 
 
 server.pre(function (req, res, next) {
-  var query = querystring.parse(req.getQuery());
-  req.method = query._method || req.method;
-  req.method = req.method.toUpperCase();
-  delete query._method;
-  delete query.callback;
-  if (req.method !== 'GET') {
-    req.headers['content-type'] = 'application/json';
-    // re-stringify the request so we can check it's length minus the _method and callback
-    var _jsonp_body = querystring.stringify(query);
-    if (Buffer.byteLength(_jsonp_body, 'utf8') > CONFIG.api.maxRequestSize) {
-      var msg = 'Request body size exceeds ' + CONFIG.api.maxRequestSize;
-      next(new restify.errors.RequestEntityTooLargeError(msg));
-    }
-    else {
-      req._jsonp_body = query;
+  if (req.method == 'GET') {
+    var query = querystring.parse(req.getQuery());
+    if (query._method) {
+      if (query._method !== req.method) {
+        req.method = query._method.toUpperCase();
+        delete query._method;
+        delete query.callback;
+        if (req.method !== 'GET') {
+          req.headers['content-type'] = 'application/json';
+          // re-stringify the request so we can check it's length minus the _method and callback
+          var _jsonp_body = querystring.stringify(query);
+          if (Buffer.byteLength(_jsonp_body, 'utf8') > CONFIG.api.maxRequestSize) {
+            var msg = 'Request body size exceeds ' + CONFIG.api.maxRequestSize;
+            next(new restify.errors.RequestEntityTooLargeError(msg));
+          }
+          else {
+            req._jsonp_body = query;
+          }
+        }
+      }
     }
   }
+  
   return next();
 });
 
