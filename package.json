@@ -24,9 +24,6 @@
     "restify": "2.3.x",
     "config": "0.4.x"
   },
-  "devDependencies": {
-    "node-dev": ""
-  },
   "engines": {
     "node": ">=0.8"
   },
